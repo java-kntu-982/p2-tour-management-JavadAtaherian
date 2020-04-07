@@ -25,8 +25,13 @@ public class Main {
 //        }
 
 
-//        Tourleader tourleader = new Tourleader();
-//        tourleader.printEmploymentDate();
+        Tourleader tourleader = new Tourleader();
+        tourleader.printEmploymentDate();
+        City[] myvb = tourleader.getCitiesOfoperation();
+        for (int i = 0; i < myvb.length ; i++) {
+            System.out.println(myvb[i].toString());
+
+        }
 
 
 

@@ -7,8 +7,8 @@ public class Tourleader {
     //attributes
     private String firstName ;
     private String lastName ;
-    private int nationalCode ;
-    private int identityNumber ;
+    private long nationalCode ;
+    private long identityNumber ;
     private ir.ac.kntu.Date birthDate ;
     private ir.ac.kntu.Date employmentDate ;
     private boolean maritalStatus ;
@@ -20,36 +20,74 @@ public class Tourleader {
 
     //construct
     public Tourleader(){
-
+        //first name
         System.out.printf("Enter first name :\n");
         Scanner scanner = new Scanner(System.in);
         setFirstName(scanner.nextLine());
 
+        //last name
         System.out.printf("Enter last name :\n");
         setLastName(scanner.nextLine());
 
-        System.out.printf("Enter national code :\n");
-        setNationalCode(scanner.nextInt());
+        // national code and checking it
+        System.out.printf("Enter national code (only 10 digits) :\n");
+        long nationalCode = scanner.nextLong();
+        while (!checkIftenDigit(nationalCode)){
+            System.out.printf("you have entered a number that is not 10 digit , try again\n");
+            nationalCode = scanner.nextLong();
+        }
+        setNationalCode(nationalCode);
 
+        // ID number and checking
         System.out.printf("Enter ID number :\n");
-        setIdentityNumber(scanner.nextInt());
+        long idNumber = scanner.nextLong();
+        while (!checkID(idNumber)){
+            System.out.printf("you have entered a number that is more than 10 digit , try again\n");
+            idNumber = scanner.nextLong();
+        }
+        setIdentityNumber(idNumber);
 
+
+        //birth date
         System.out.printf("Enter the born year : \n");
         int year = scanner.nextInt();
         System.out.printf("Enter the born month : \n");
         int month = scanner.nextInt();
         System.out.printf("Enter the born day : \n");
         int day = scanner.nextInt();
+        //checking the date
+        while (!checkDate(year,month,day)){
+            System.out.printf("you have entered some irrational numbers pls try again\n");
+            System.out.printf("Enter the born year : \n");
+            year = scanner.nextInt();
+            System.out.printf("Enter the born month : \n");
+            month = scanner.nextInt();
+            System.out.printf("Enter the born day : \n");
+            day = scanner.nextInt();
+        }
         setBirthDate(year,month,day);
-        System.out.println();
+
+        //employment date
         System.out.printf("Enter employment year : \n");
         year = scanner.nextInt();
         System.out.printf("Enter employment month : \n");
         month = scanner.nextInt();
         System.out.printf("Enter employment day : \n");
         day = scanner.nextInt();
+        //checking the employment date
+        while (!checkEmploymentDate(year,month,day)){
+            System.out.printf("you have entered some irrational numbers pls try again (probably the difference between the year you born and the year you employed is less than 18)\n");
+            System.out.printf("Enter the employment year : \n");
+            year = scanner.nextInt();
+            System.out.printf("Enter the employment month : \n");
+            month = scanner.nextInt();
+            System.out.printf("Enter the employment day : \n");
+            day = scanner.nextInt();
+        }
         setEmploymentDate(year,month,day);
-        System.out.println();
+
+
+        //marital status and checking
         System.out.printf("Are you married ? \n ( Y/y for yes and N/n for no \n");
         String question = scanner.next();
         if (question.equals("Y")||question.equals("y") || question.equals("Yea")||question.equals("yes")){
@@ -63,7 +101,47 @@ public class Tourleader {
             setMaritalStatus(false);
         }
 
-        System.out.printf("");
+
+
+
+        //assigning countries
+
+
+        //assigning cities
+        System.out.printf("How many cities are going to be handled by this tour leader? ");
+        int cityCount = scanner.nextInt();
+        City[] cities = new City[cityCount];
+        City[] cityList = City.values();
+        int[] checkForcopies = new int[cityCount];
+        for (int s = 0; s < checkForcopies.length; s++) {
+            checkForcopies[s]=-1-s;
+        }
+        for (int i = 0; i < cityCount; i++) {
+            int j = 0;
+            for (City cityShow : City.values()){
+                System.out.printf("%-30s%d\n", cityShow,j);
+                j++;
+            }
+
+            //choose from list
+            System.out.printf("Choose from the list and enter the city number\n");
+            int chosenCity = scanner.nextInt();
+            //checks if there is a duplicate city and if there is not, it continues
+            checkForcopies[i]=chosenCity;
+            while (checkForduplicates(checkForcopies)){
+                System.out.printf("you have assigned a city more than one time , please reconsider your decision\n");
+                chosenCity=scanner.nextInt();
+                checkForcopies[i]=chosenCity;
+            }
+            //if there is no duplicates, it assigns the first one
+            cities[i]=cityList[chosenCity];
+            //clears the console
+            System.out.flush();
+        }
+        //assigns cities array to cities of OP
+        citiesOfoperation = cities;
+
+        //
 
 
 
@@ -89,12 +167,12 @@ public class Tourleader {
     }
 
     //national code getter
-    public int getNationalCode() {
+    public long getNationalCode() {
         return nationalCode;
     }
 
     //id num getter
-     public int getIdentityNumber() {
+     public long getIdentityNumber() {
         return identityNumber;
     }
 
@@ -146,11 +224,11 @@ public class Tourleader {
         this.lastName = lastName;
     }
 
-    public void setNationalCode(int nationalCode) {
+    public void setNationalCode(long nationalCode) {
         this.nationalCode = nationalCode;
     }
 
-    public void setIdentityNumber(int identityNumber) {
+    public void setIdentityNumber(long identityNumber) {
         this.identityNumber = identityNumber;
     }
 
@@ -188,5 +266,71 @@ public class Tourleader {
     public void printEmploymentDate(){
         System.out.println(this.employmentDate.getYear()+"/"+this.employmentDate.getMonth()+"/"+this.employmentDate.getDay());
     }
+
+    //check for duplicates
+    public boolean checkForduplicates(int[] checkArray){
+        for (int i = 0; i < checkArray.length; i++) {
+            for (int j = i+1; j < checkArray.length ; j++) {
+                if (checkArray[i]==checkArray[j]){
+                    return true ;
+                }
+            }
+        }
+        return false;
+    }
+
+    //check national code being 10 digit
+    public boolean checkIftenDigit(long number){
+        long remain =number;
+        int counter = 0 ;
+        while (remain!=0){
+            remain/=10;
+            counter++;
+        }
+        if (counter==10){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    //check ID
+    public boolean checkID(long number){
+        long remain =number;
+        int counter = 0 ;
+        while (remain!=0){
+            remain/=10;
+            counter++;
+        }
+        if (counter<=10){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    //check the date
+    public boolean checkDate(int year , int month , int day){
+        if (year>1 && month>1 && day>1){
+            if ((year>=1280) && (((month<=6) && (day>=1&&day<=31)) || ((month>=7 && month<=12)&&(day<=30)))){
+                return true ;
+            }
+        }
+        return false ;
+    }
+
+    //check employment date
+    public boolean checkEmploymentDate(int year , int month , int day){
+        if (year>1 && month>1 && day>1){
+            if ((year>=1280 && year-this.birthDate.getYear()>=18) && (((month<=6) && (day>=1&&day<=31)) || ((month>=7 && month<=12)&&(day<=30)))){
+                return true ;
+            }
+        }
+        return false ;
+    }
+
 
 }
