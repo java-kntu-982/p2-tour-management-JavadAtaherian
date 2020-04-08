@@ -14,7 +14,7 @@ public class Tourleader {
     private boolean maritalStatus ;
 //    private boolean internationalStatus ;
     private City[] citiesOfoperation ;
-    private Country[] CountriesOfoperation ;
+    private Country[] countriesOfoperation ;
 
 
 
@@ -92,11 +92,9 @@ public class Tourleader {
         String question = scanner.next();
         if (question.equals("Y")||question.equals("y") || question.equals("Yea")||question.equals("yes")){
             setMaritalStatus(true);
-        }
-        else if (question.equals("N")||question.equals("n") || question.equals("No")||question.equals("no")){
+        } else if (question.equals("N")||question.equals("n") || question.equals("No")||question.equals("no")){
             setMaritalStatus(false);
-        }
-        else{
+        } else{
             System.out.printf("You have entered sth else , we take that as a No \n");
             setMaritalStatus(false);
         }
@@ -104,23 +102,37 @@ public class Tourleader {
 
 
 
-        //assigning countries
 
-
-        //assigning cities
-        System.out.printf("How many cities are going to be handled by this tour leader? ");
+        System.out.printf("How many countries are going to be handled by this tour leader?\n");
+        int countryCount = scanner.nextInt();
+        System.out.printf("How many cities(in Iran) are going to be handled by this tour leader? \n");
         int cityCount = scanner.nextInt();
-        City[] cities = new City[cityCount];
+
+
+        Country[] countries = new Country[countryCount];
+        Country[] countryList = Country.values();
+        City[] cities = new City[cityCount+countryCount];
         City[] cityList = City.values();
+
+        int[] countryCopies = new int[countryCount];
+        for (int s = 0; s < countryCopies.length; s++) {
+            countryCopies[s]=-1-s;
+        }
+
         int[] checkForcopies = new int[cityCount];
         for (int s = 0; s < checkForcopies.length; s++) {
             checkForcopies[s]=-1-s;
         }
+
+
+
+        //assigning cities
         for (int i = 0; i < cityCount; i++) {
-            int j = 0;
-            for (City cityShow : City.values()){
-                System.out.printf("%-30s%d\n", cityShow,j);
-                j++;
+
+            City[] cityShow = City.values();
+            for (int k=194 ; k<226 ; k++){
+                System.out.printf("%-30s%d\n", cityShow[k].toString(),k);
+
             }
 
             //choose from list
@@ -138,13 +150,44 @@ public class Tourleader {
             //clears the console
             System.out.flush();
         }
+
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+        //assigning countries
+        for (int i = 0; i < countryCount; i++) {
+            int j = 0;
+            for (Country countryShow : Country.values()){
+                System.out.printf("%-30s%d\n", countryShow,j);
+                j++;
+            }
+
+            //choose from list
+            System.out.printf("Choose from the list and enter the country number\n");
+            int chosenCountry = scanner.nextInt();
+            //checks if there is a duplicate country and if there is not, it continues
+            countryCopies[i]=chosenCountry;
+            while (checkForduplicates(countryCopies)){
+                System.out.printf("you have assigned a country more than one time , please reconsider your decision\n");
+                chosenCountry=scanner.nextInt();
+                countryCopies[i]=chosenCountry;
+            }
+            //if there is no duplicates, it assigns the first one
+            countries[i]=countryList[chosenCountry];
+            //clears the console
+            System.out.flush();
+        }
+        //assigns countries array to countries if OP
+        countriesOfoperation = countries;
+
+        //adding chosen countries's capitals to the end of the cities array
+        for (int i = cityCount; i < countryCount+cityCount; i++) {
+            cities[i]=cityList[countryCopies[i-cityCount]];
+        }
+
         //assigns cities array to cities of OP
         citiesOfoperation = cities;
-
-        //
-
-
-
 
 
     }
@@ -172,7 +215,7 @@ public class Tourleader {
     }
 
     //id num getter
-     public long getIdentityNumber() {
+    public long getIdentityNumber() {
         return identityNumber;
     }
 
@@ -196,7 +239,7 @@ public class Tourleader {
     //country of op getter
 
     public Country[] getCountriesOfoperation() {
-        return CountriesOfoperation;
+        return countriesOfoperation;
     }
 
     // married ?
@@ -253,7 +296,7 @@ public class Tourleader {
     }
 
     public void setCountriesOfoperation(Country[] countriesOfoperation) {
-        CountriesOfoperation = countriesOfoperation;
+        this.countriesOfoperation = countriesOfoperation;
     }
 
     // print birthdate
@@ -289,8 +332,7 @@ public class Tourleader {
         }
         if (counter==10){
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -305,8 +347,7 @@ public class Tourleader {
         }
         if (counter<=10){
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

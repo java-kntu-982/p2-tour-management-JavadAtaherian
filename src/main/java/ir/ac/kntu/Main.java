@@ -1,8 +1,8 @@
 package ir.ac.kntu;
 
-import ir.ac.kntu.maputil.MapUtil;
-
-import java.util.Scanner;
+//import ir.ac.kntu.maputil.MapUtil;
+//
+//import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,13 +25,22 @@ public class Main {
 //        }
 
 
-        Tourleader tourleader = new Tourleader();
-        tourleader.printEmploymentDate();
-        City[] myvb = tourleader.getCitiesOfoperation();
-        for (int i = 0; i < myvb.length ; i++) {
-            System.out.println(myvb[i].toString());
-
-        }
+//        Tourleader tourleader = new Tourleader();
+//        tourleader.printEmploymentDate();
+//
+//        Country[] mybh = tourleader.getCountriesOfoperation();
+//        for (int i = 0; i <mybh.length ; i++) {
+//            System.out.println(mybh[i].toString());
+//        }
+//
+//
+//
+//        City[] myvb = tourleader.getCitiesOfoperation();
+//        System.out.println(myvb.length);
+//        for (int i = 0; i < myvb.length ; i++) {
+//            System.out.println(myvb[i].toString());
+//
+//        }
 
 
 
