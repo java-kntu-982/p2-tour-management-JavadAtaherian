@@ -27,6 +27,7 @@ public class Main {
 
 //        Tourleader tourleader = new Tourleader();
 //        tourleader.printEmploymentDate();
+//        tourleader.print();
 //
 //        Country[] mybh = tourleader.getCountriesOfoperation();
 //        for (int i = 0; i <mybh.length ; i++) {

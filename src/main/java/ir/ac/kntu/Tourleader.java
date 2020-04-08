@@ -7,8 +7,8 @@ public class Tourleader {
     //attributes
     private String firstName ;
     private String lastName ;
-    private long nationalCode ;
-    private long identityNumber ;
+    private String nationalCode ;
+    private String identityNumber ;
     private ir.ac.kntu.Date birthDate ;
     private ir.ac.kntu.Date employmentDate ;
     private boolean maritalStatus ;
@@ -31,19 +31,19 @@ public class Tourleader {
 
         // national code and checking it
         System.out.printf("Enter national code (only 10 digits) :\n");
-        long nationalCode = scanner.nextLong();
+        String nationalCode = scanner.nextLine();
         while (!checkIftenDigit(nationalCode)){
             System.out.printf("you have entered a number that is not 10 digit , try again\n");
-            nationalCode = scanner.nextLong();
+            nationalCode = scanner.nextLine();
         }
         setNationalCode(nationalCode);
 
         // ID number and checking
         System.out.printf("Enter ID number :\n");
-        long idNumber = scanner.nextLong();
+        String idNumber = scanner.nextLine();
         while (!checkID(idNumber)){
             System.out.printf("you have entered a number that is more than 10 digit , try again\n");
-            idNumber = scanner.nextLong();
+            idNumber = scanner.nextLine();
         }
         setIdentityNumber(idNumber);
 
@@ -136,7 +136,7 @@ public class Tourleader {
             }
 
             //choose from list
-            System.out.printf("Choose from the list and enter the city number\n");
+            System.out.printf("Choose from the list and enter the city number (if you want to choose TEHRAN , in the next section choose iran)\n");
             int chosenCity = scanner.nextInt();
             //checks if there is a duplicate city and if there is not, it continues
             checkForcopies[i]=chosenCity;
@@ -210,12 +210,12 @@ public class Tourleader {
     }
 
     //national code getter
-    public long getNationalCode() {
+    public String getNationalCode() {
         return nationalCode;
     }
 
     //id num getter
-    public long getIdentityNumber() {
+    public String getIdentityNumber() {
         return identityNumber;
     }
 
@@ -267,11 +267,11 @@ public class Tourleader {
         this.lastName = lastName;
     }
 
-    public void setNationalCode(long nationalCode) {
+    public void setNationalCode(String nationalCode) {
         this.nationalCode = nationalCode;
     }
 
-    public void setIdentityNumber(long identityNumber) {
+    public void setIdentityNumber(String identityNumber) {
         this.identityNumber = identityNumber;
     }
 
@@ -323,33 +323,20 @@ public class Tourleader {
     }
 
     //check national code being 10 digit
-    public boolean checkIftenDigit(long number){
-        long remain =number;
-        int counter = 0 ;
-        while (remain!=0){
-            remain/=10;
-            counter++;
-        }
-        if (counter==10){
-            return true;
-        } else {
-            return false;
-        }
+    public boolean checkIftenDigit(String number){
+       if(number.matches("[0-9]+") && number.length() == 10) {
+           return true;
+       }
+       return false;
     }
 
+
     //check ID
-    public boolean checkID(long number){
-        long remain =number;
-        int counter = 0 ;
-        while (remain!=0){
-            remain/=10;
-            counter++;
-        }
-        if (counter<=10){
+    public boolean checkID(String number){
+        if (number.matches("[0-9]+") && number.length() >=3 && number.length()<=10) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
 
@@ -366,11 +353,31 @@ public class Tourleader {
     //check employment date
     public boolean checkEmploymentDate(int year , int month , int day){
         if (year>1 && month>1 && day>1){
-            if ((year>=1280 && year-this.birthDate.getYear()>=18) && (((month<=6) && (day>=1&&day<=31)) || ((month>=7 && month<=12)&&(day<=30)))){
+            if ((year>=1280 && year-this.birthDate.getYear()>=18) && (((month<=6) && (day<=31)) || ((month>=7 && month<=12)&&(day<=30)))){
                 return true ;
             }
         }
         return false ;
+    }
+
+
+    //print
+    public void print(){
+        System.out.println("First name: " + this.firstName);
+        System.out.println("Last name: " + this.lastName);
+        System.out.println("National Code : " + this.nationalCode);
+        System.out.println("ID Number: " + this.identityNumber);
+        this.birthDate.printDate();
+        this.employmentDate.printDate();
+        System.out.println(this.isMarried());
+        System.out.println("Countries Of Operation: ");
+        for (int i = 0; i < this.countriesOfoperation.length; i++) {
+            System.out.println(countriesOfoperation[i]);
+        }
+        System.out.println("Cities Of Operation: ");
+        for (int i = 0; i < this.citiesOfoperation.length; i++) {
+            System.out.println(citiesOfoperation[i]);
+        }
     }
 
 
