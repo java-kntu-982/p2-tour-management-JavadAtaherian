@@ -63,8 +63,9 @@ public class Date {
 
     //equals
     public  boolean equalsto(Date date){
-        if (this.getYear()==date.getYear() && this.getMonth()==date.getMonth() && this.getDay()==date.getDay())
+        if (this.getYear()==date.getYear() && this.getMonth()==date.getMonth() && this.getDay()==date.getDay()) {
             return true;
+        }
         return false;
     }
 
