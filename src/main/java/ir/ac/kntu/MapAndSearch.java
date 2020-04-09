@@ -25,8 +25,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
 
     }
 
@@ -39,8 +40,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
     //search tours based on days
@@ -52,8 +54,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
     //search tours based on price
@@ -65,8 +68,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
     //search tours based on price bigger than
@@ -78,8 +82,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
     //search tours based on price
@@ -91,8 +96,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
     //search tours based on price
@@ -104,8 +110,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
 
@@ -118,8 +125,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
     //search tours based on day plans
@@ -133,8 +141,9 @@ public class MapAndSearch {
                     break;
                 }
             }
-            if (success==0)
+            if (success==0) {
                 System.out.println("No compatibility!");
+            }
 
         }
     }
@@ -148,8 +157,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
     //search tours based on a certain date
@@ -161,8 +171,9 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
 
@@ -174,12 +185,13 @@ public class MapAndSearch {
                 success++;
             }
         }
-        if (success==0)
+        if (success==0) {
             System.out.println("No compatibility!");
+        }
     }
 
 
-    //show all cities
+    //show all countries
     public static void showAllCountries(){
         int i = 0;
         for (Country myCountrySet : Country.values()){
@@ -196,6 +208,8 @@ public class MapAndSearch {
             i++;
         }
     }
+
+
 
 
 
