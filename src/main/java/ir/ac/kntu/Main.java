@@ -4,6 +4,8 @@ package ir.ac.kntu;
 //
 //import java.util.Scanner;
 
+//import java.util.LinkedList;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -42,6 +44,10 @@ public class Main {
 //            System.out.println(myvb[i].toString());
 //
 //        }
+
+        Tour tour = new Tour();
+        tour.print();
+
 
 
 

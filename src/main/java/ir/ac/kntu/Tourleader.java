@@ -88,7 +88,7 @@ public class Tourleader {
 
 
         //marital status and checking
-        System.out.printf("Are you married ? \n ( Y/y for yes and N/n for no \n");
+        System.out.printf("Are you married ? \n ( Y/y for yes and N/n for no) \n");
         String question = scanner.next();
         if (question.equals("Y")||question.equals("y") || question.equals("Yea")||question.equals("yes")){
             setMaritalStatus(true);
@@ -129,10 +129,9 @@ public class Tourleader {
         //assigning cities
         for (int i = 0; i < cityCount; i++) {
 
-            City[] cityShow = City.values();
-            for (int k=194 ; k<226 ; k++){
-                System.out.printf("%-30s%d\n", cityShow[k].toString(),k);
 
+            for (int k=194 ; k<226 ; k++){
+                System.out.printf("%-30s%d\n", cityList[k].toString(),k);
             }
 
             //choose from list
@@ -140,8 +139,8 @@ public class Tourleader {
             int chosenCity = scanner.nextInt();
             //checks if there is a duplicate city and if there is not, it continues
             checkForcopies[i]=chosenCity;
-            while (checkForduplicates(checkForcopies)){
-                System.out.printf("you have assigned a city more than one time , please reconsider your decision\n");
+            while (checkForduplicates(checkForcopies)||chosenCity<0||chosenCity>225){
+                System.out.printf("you have assigned a city more than one time or chose an out of range code , please reconsider your decision\n");
                 chosenCity=scanner.nextInt();
                 checkForcopies[i]=chosenCity;
             }
@@ -168,8 +167,8 @@ public class Tourleader {
             int chosenCountry = scanner.nextInt();
             //checks if there is a duplicate country and if there is not, it continues
             countryCopies[i]=chosenCountry;
-            while (checkForduplicates(countryCopies)){
-                System.out.printf("you have assigned a country more than one time , please reconsider your decision\n");
+            while (checkForduplicates(countryCopies)||chosenCountry<0||chosenCountry>193){
+                System.out.printf("you have assigned a country more than one time or chose an out of range code, please reconsider your decision\n");
                 chosenCountry=scanner.nextInt();
                 countryCopies[i]=chosenCountry;
             }
@@ -324,10 +323,10 @@ public class Tourleader {
 
     //check national code being 10 digit
     public boolean checkIftenDigit(String number){
-       if(number.matches("[0-9]+") && number.length() == 10) {
-           return true;
-       }
-       return false;
+        if(number.matches("[0-9]+") && number.length() == 10) {
+            return true;
+        }
+        return false;
     }
 
 
