@@ -1,12 +1,12 @@
 package ir.ac.kntu;
 
-//import ir.ac.kntu.maputil.MapUtil;
-//
-//import java.util.Scanner;
+import java.util.*;
 
-//import java.util.LinkedList;
+
 
 public class Main {
+    public static LinkedList<Tourleader> tourleaders = new LinkedList<Tourleader>() ;
+    public static LinkedList<Tour> tours = new LinkedList<>();
     public static void main(String[] args) {
 
 ////        Good for showing one location
@@ -45,8 +45,22 @@ public class Main {
 //
 //        }
 
-        Tour tour = new Tour();
-        tour.print();
+//        Tour tour = new Tour();
+//        tour.print();
+
+        //--------------------------------------------------------------------------------------------
+
+
+
+        MapAndSearch.drawRoutes("TEHRAN" , "MASHHAD");
+
+
+
+
+
+        //menu
+
+
 
 
 
@@ -54,4 +68,5 @@ public class Main {
 
 
     }
+
 }

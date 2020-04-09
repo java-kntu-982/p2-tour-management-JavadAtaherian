@@ -46,7 +46,7 @@ public class Date {
 
 
     //check the date
-    public boolean checkDate(int year , int month , int day){
+    public static boolean checkDate(int year , int month , int day){
         if (year>1 && month>1 && day>1){
             if ((year>=1280) && (((month<=6) && (day>=1&&day<=31)) || ((month>=7 && month<=12)&&(day<=30)))){
                 return true ;
@@ -59,6 +59,13 @@ public class Date {
     //print date
     public void printDate(){
         System.out.println(this.year+"/"+this.month+"/"+this.day);
+    }
+
+    //equals
+    public  boolean equalsto(Date date){
+        if (this.getYear()==date.getYear() && this.getMonth()==date.getMonth() && this.getDay()==date.getDay())
+            return true;
+        return false;
     }
 
 

@@ -56,7 +56,7 @@ public class Tourleader {
         System.out.printf("Enter the born day : \n");
         int day = scanner.nextInt();
         //checking the date
-        while (!checkDate(year,month,day)){
+        while (!Date.checkDate(year,month,day)){
             System.out.printf("you have entered some irrational numbers pls try again\n");
             System.out.printf("Enter the born year : \n");
             year = scanner.nextInt();
@@ -339,16 +339,6 @@ public class Tourleader {
     }
 
 
-    //check the date
-    public boolean checkDate(int year , int month , int day){
-        if (year>1 && month>1 && day>1){
-            if ((year>=1280) && (((month<=6) && (day>=1&&day<=31)) || ((month>=7 && month<=12)&&(day<=30)))){
-                return true ;
-            }
-        }
-        return false ;
-    }
-
     //check employment date
     public boolean checkEmploymentDate(int year , int month , int day){
         if (year>1 && month>1 && day>1){
@@ -377,7 +367,24 @@ public class Tourleader {
         for (int i = 0; i < this.citiesOfoperation.length; i++) {
             System.out.println(citiesOfoperation[i]);
         }
+        System.out.println("----------------------------------------------------------------------");
     }
+
+    //show tourleader's citeies of operation on the map
+    public void drawTourLeaderCities(){
+        for (int i = 0; i < this.citiesOfoperation.length; i++) {
+            MapAndSearch.drawOneLocation(this.citiesOfoperation[i].toString());
+        }
+    }
+
+    //show tourleader's countries of operation on the map
+    public void drawTourLeaderCountries(){
+        for (int i = 0; i < this.countriesOfoperation.length; i++) {
+            MapAndSearch.drawOneLocation(this.countriesOfoperation[i].toString());
+        }
+    }
+
+
 
 
 }

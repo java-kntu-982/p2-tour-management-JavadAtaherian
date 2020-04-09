@@ -1,5 +1,7 @@
 package ir.ac.kntu;
 
+import ir.ac.kntu.maputil.MapUtil;
+
 import java.util.Scanner;
 //import java.util.*;
 
@@ -19,6 +21,7 @@ public class Tour {
     private boolean transportation ; // air or land based travel
     private String[] nightPlans;
     private String[] dayPlans;
+    private Tourleader theTourLeader ;
 
 
     ///////////////////////////////////////////////////////////////////////////////
@@ -27,23 +30,37 @@ public class Tour {
     public Tour(){
         Scanner scanner = new Scanner(System.in);
 
+        //choose tourleader
+        for (int i = 0; i < Main.tourleaders.size(); i++) {
+            System.out.println("----------------------------------------------------------------------");
+            System.out.println("Tourlead No." + i+1);
+            Main.tourleaders.get(i).print();
+
+        }
+        System.out.println("Choose your leader (enter it's number): ");
+        int chosenTourLeader = scanner.nextInt();
+        setTheTourLeader(Main.tourleaders.get(chosenTourLeader-1));
+
+
+
+
         //name
         System.out.printf("Enter the tours name : \n");
         setName(scanner.nextLine());
 
         //international ?
-        System.out.printf("Is this tour international ? ('y' for yes and 'n' no)\n");
+        System.out.printf("LOCAL OR FOREIGN ('l' for yes and 'f' no)\n");
         String question = scanner.next();
-        if (question.equals("Y")||question.equals("y") || question.equals("Yea")||question.equals("yes")){
+        if (question.equals("F")||question.equals("f") || question.equals("Foreign")||question.equals("foreign")){
             setKind(true);
-        } else if (question.equals("N")||question.equals("n") || question.equals("No")||question.equals("no")){
+        } else if (question.equals("L")||question.equals("l") || question.equals("Local")||question.equals("local")){
             setKind(false);
         } else{
-            System.out.printf("You have entered sth else , we take that as a No \n");
+            System.out.printf("You have entered sth else , we take that as a local \n");
             setKind(false);
         }
 
-        //set area based on being international
+        //set area based on being foreign
         Country[] countryList = Country.values();
         City[] cityList = City.values();
         if (this.kind){
@@ -145,7 +162,7 @@ public class Tour {
         int year = scanner.nextInt();
         int month = scanner.nextInt();
         int day = scanner.nextInt();
-        while (!checkDate(year,month,day)){
+        while (!Date.checkDate(year,month,day)){
             System.out.printf("you have entered some irrational numbers pls try again\n");
             System.out.printf("Enter year , month ,  day\n");
             year = scanner.nextInt();
@@ -263,6 +280,13 @@ public class Tour {
         return nightPlans;
     }
 
+    public Tourleader getTheTourLeader() {
+        return theTourLeader;
+    }
+
+    public boolean getKind(){
+        return this.kind;
+    }
 
     /////////////////////////////////////////////////////////////
     //setters
@@ -320,17 +344,13 @@ public class Tour {
         this.price = price;
     }
 
+    public void setTheTourLeader(Tourleader theTourLeader) {
+        this.theTourLeader = theTourLeader;
+    }
+
     ////////////////////////////////////////////////////////////
 
-    //check the date
-    public boolean checkDate(int year , int month , int day){
-        if (year>1 && month>1 && day>1){
-            if ((year>=1280) && (((month<=6) && (day>=1&&day<=31)) || ((month>=7 && month<=12)&&(day<=30)))){
-                return true ;
-            }
-        }
-        return false ;
-    }
+
 
     //clear screen
     public static void clearScreen() {
@@ -360,11 +380,36 @@ public class Tour {
         for (int i = 0; i < this.nightPlans.length; i++) {
             System.out.printf("Night %d plan : %s \n" , i+1 , nightPlans[i]);
         }
+        System.out.println("------------------------------------------------------------------------");
 
 
 
 
     }
+
+    //draw origin on the map
+    public void drawOrigin(){
+        MapAndSearch.drawOneLocation(this.getOrigin().toString());
+    }
+
+    //draw destination on the map
+    public void drawDestination(){
+        MapAndSearch.drawOneLocation(this.getDestination().toString());
+    }
+
+    //draw rout on the map
+    public void drawRout(){
+        MapAndSearch.drawRoutes(this.getOrigin().toString() , this.getDestination().toString());
+    }
+
+    //draw all the plans for  days
+    public void drawDayPlans(){
+        for (int i = 0; i < this.getDayPlans().length; i++) {
+            MapAndSearch.drawOneLocation(this.getDayPlans()[i]);
+        }
+    }
+
+
 
 
 
